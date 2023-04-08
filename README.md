@@ -8,7 +8,8 @@ A plugin for [Payload CMS](https://github.com/payloadcms/payload) to create a co
 
 - Adds a collection to your Payload CMS instance for comments with the following features out of the box:
   - Standard fields configured by default
-  - Customizable comment validation
+  - Payload API endpoint
+  - Comment processing/validation callback
   - Option to receive email whenever a new comment is received.
 - Fully customizable: add, edit, remove any fields you want.
 
@@ -40,11 +41,9 @@ export default buildConfig({
     },
   ],
   plugins: [
-    comments({}),
+    comments(),
   ],
 });
 ```
 
 ### Options
-
-
