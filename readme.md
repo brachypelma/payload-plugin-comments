@@ -113,7 +113,7 @@ If you pass in an options object to `comments()`, whatever property/value pairs 
 
 ### slug: `string`
 
-Matches the `slug` property of the comments collection created.
+Matches the `slug` property of the comments collection created. [Payload documention on Collections](https://payloadcms.com/docs/configuration/collections)
 
 Default value: `'comments'`
 
@@ -122,3 +122,17 @@ Default value: `'comments'`
 If you configure your collection to send emails when a new comment is received, this is the term that will be used to refer to the submission in the alert email, e.g.: `'Information about this ${singularLabel}'`
 
 Default value: `'comment'`
+
+### admin `{defaultColumns: string[], useAsTitle: string}`
+
+Matches admin property of Payload collection config. [Payload documention on Collections](https://payloadcms.com/docs/configuration/collections)
+
+Default value:
+`{
+  defaultColumns: ['id', 'author', 'email', 'isApproved', 'content'],
+  useAsTitle: 'id',
+}`
+
+### fields `Field[]`
+
+
