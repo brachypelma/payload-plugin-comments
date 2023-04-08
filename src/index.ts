@@ -72,7 +72,6 @@ function getProcessedOptions(
 
 const comments = (incomingOptions: IncomingOptions = {}) => (incomingConfig: Config): Config => {
   const processedOptions = getProcessedOptions(incomingOptions, incomingConfig)
-
   const { slug, fields, admin, timestamps, path, method } = processedOptions
   const commentCollection = {
     slug,
