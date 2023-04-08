@@ -10,12 +10,6 @@ Core features:
 
 ## Installation
 
-```bash
-  yarn add @payloadcms/plugin-search
-  # OR
-  npm i @payloadcms/plugin-search
-```
-
 ## Basic Usage
 
 In the `plugins` array of your [Payload config](https://payloadcms.com/docs/configuration/overview), call the plugin with [options](#options):
