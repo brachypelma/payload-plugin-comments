@@ -2,7 +2,7 @@
 
 [![NPM]()]()
 
-A plugin for [Payload CMS](https://github.com/payloadcms/payload) to create a collection for comments, reviews, or other user-submitted feedback on your website or web application.
+A fully-customizable plugin for [Payload CMS](https://github.com/payloadcms/payload) to create a collection for comments, reviews, or other user-submitted feedback on your website or web application.
 
 ## Core features:
 
@@ -11,7 +11,10 @@ A plugin for [Payload CMS](https://github.com/payloadcms/payload) to create a co
   - Payload API endpoint to which you can POST comment data
   - Comment processing/validation callback
   - Option to receive email whenever a new comment is received.
-- Fully customizable: add, edit, remove any fields you want.
+- Fully customizable
+  - Add, edit, remove collection fields
+  - Add comment approval logic, including the ability to set parameters to approve when a new comment is received.
+  - Customize email sent when a new comment is received.
 
 ## Use cases:
 
