@@ -21,6 +21,7 @@ A fully-customizable plugin for [Payload CMS](https://github.com/payloadcms/payl
 - Blog/article comments
 - Product reviews
 - Discussion forums
+- Any other user-authored content for your website or Payload application
 
 ## Installation
 
@@ -49,4 +50,75 @@ export default buildConfig({
 });
 ```
 
-### Options
+## Options
+
+### Default options
+
+If you call `comments()` without an options object, the plugin will add a Comments collection to your Payload instance with the following default options:
+
+```js
+const defaultOptions = {
+  slug: 'comments',
+  singularLabel: 'comment',
+  admin: {
+    defaultColumns: ['id', 'author', 'email', 'isApproved', 'content'],
+    useAsTitle: 'id',
+  },
+  fields: [
+    {
+      name: 'author',
+      type: 'text',
+    },
+    {
+      name: 'email',
+      type: 'email',
+    },
+    {
+      name: 'content',
+      type: 'textarea'
+    },
+    {
+      name: 'replyPost',
+      type: 'relationship',
+      relationTo: 'posts',
+    },
+    {
+      name: 'replyComment',
+      type: 'relationship',
+      relationTo: 'comments',
+    },
+    {
+      name: 'isApproved',
+      type: 'checkbox',
+      defaultValue: false,
+    },
+  ],
+  timestamps: true,
+  path: '/add-comment',
+  method: 'post',
+  collectionsAllowingComments: ['posts'],
+  sendAlert: false,
+  alertRecipients: [],
+  alertFrom: '',
+  alertSubject: 'Your site received a new comment',
+  alertIntro: '<p>Your site received the following comment.</p>',
+  alertClosing: '<p>Please log in to review, approve, or delete this comment.</p>',
+  alertEditUrlBase: '',
+  autoPublish: false,
+  autoPublishConditions: [],
+}
+```
+
+If you pass in an options object to `comments()`, whatever property/value pairs you include in your options will override the defaults. Any properties overridden will fall back to their default values.
+
+### slug: `string`
+
+Matches the `slug` property of the comments collection created.
+
+Default value: `'comments'`
+
+### singularLabel: `string`
+
+If you configure your collection to send emails when a new comment is received, this is the term that will be used to refer to the submission in the alert email, e.g.: `'Information about this ${singularLabel}'`
+
+Default value: `'comment'`
