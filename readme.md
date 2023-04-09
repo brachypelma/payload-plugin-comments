@@ -173,7 +173,7 @@ Default value:
 
 #### Required fields
 
-**Although plugin users can define their own fields, two fields, `isApproved` and `replyPost` are required and will always be added to the collection, since they are vital to the functionality of the plugin**
+**Although plugin users can define their own fields, two fields, `isApproved` and `replyPost`, are required and will always be added to the collection with the properties specified below, since they are vital to the functionality of the plugin**
 
 ##### `isApproved`: `Field`
 
