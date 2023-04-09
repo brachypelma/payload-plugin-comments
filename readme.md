@@ -183,7 +183,7 @@ The custom API endpoint path for this colllection. **This endpoint should only b
 
 Default value: `/add-comment`
 
-### method: `string`
+### method: `'get'|'head'|'post'|'put'|'delete'|'connect'|'options'`
 
 HTTP verb used to access the custom endpoint for handling incoming comments. [More information in Payload's documentation on custom API endpoints](https://payloadcms.com/docs/rest-api/overview#custom-endpoints)
 
@@ -209,7 +209,11 @@ Determines whether to send email alerts to specified email addresses when your P
 
 Default value: `false`
 
-### alertRecipients: 
+### alertRecipients: `string[]`
+
+Array of email addresses that should receive email alerts when a new comment is sucessfully processed by the [`processComment` handler](#processcomment-handler-for-new-comments) if [`sendAlert`](#sendalert-boolean) is set to `true`.
+
+
 
 ## `processComment` Handler for New Comments
 
