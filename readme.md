@@ -126,10 +126,12 @@ Default value: `'comment'`
 Matches admin property of Payload collection config. [More information in Payload's documentation on Collections](https://payloadcms.com/docs/configuration/collections)
 
 Default value:
-`{
+```js
+{
   defaultColumns: ['id', 'author', 'email', 'isApproved', 'content'],
   useAsTitle: 'id',
-}`
+}
+```
 
 ### fields `Field[]`
 
