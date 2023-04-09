@@ -336,4 +336,18 @@ The handler receives three arguments:
 * `res`: An Express [`Response`](https://expressjs.com/en/api.html#res) object to be returned by the default `/add-comment` endpoint after handling the incoming `Request`.
 * `options`: The `CommentOptions` object for your comments collection [see `options` documentation](#options)
 
+### Execution steps
 
+The handler examines the incoming `Request` to determine whether it can successfully create a new comment in several ways outlined below.
+
+#### Check `collectionsAllowingComments`
+
+Determine whether there are any collection `slug`s listed in.
+
+If not, no collections accept comments, so there is nothing for users to comment on (function will return a `Response` with code `400` and the message `''Your site is not configured to accept your submission.''`).
+
+If there are `slug`s listed in the array, proceed to the next step of function execution.
+
+#### Look up the matching `replyPost`
+
+Search for an existing item in one of the collections receiving comments matching the value of the ``

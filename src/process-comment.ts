@@ -22,10 +22,12 @@ export default async function processComment(
     return response(res, 'Your site is not configured to accept your submission.')
   }
   
-  const replyPost = await getReplyPost(body.id, collectionsAllowingComments)
+  const replyPost = await getReplyPost(body.replyPost, collectionsAllowingComments)
   if (!replyPost) {
     return response(res, 'We were unable to find a target for your submission.')
   }
+  // Why is this using body.id???
+  // And don't we need a function for replyComment as well??
 
   const isApproved = getIsApproved(body, options)
   const data = getNewCommentData(body, fields, isApproved)
@@ -58,7 +60,7 @@ function response(
 }
 
 async function getReplyPost(
-  id: string,
+  replyPost: string,
   collectionsToSearch: string[],
   index = 0
 ): Promise<PaginatedDocs<any>|false> {
@@ -67,14 +69,14 @@ async function getReplyPost(
   const post = await payload.find({
     collection: collectionsToSearch[index],
     limit: 1,
-    where: { id: { equals: id } },
+    where: { id: { equals: replyPost } },
   })
 
   if (post) return post
 
   const moreToSearch = ++index < (collectionsToSearch.length - 1)
 
-  return moreToSearch ? getReplyPost(id, collectionsToSearch, index) : false
+  return moreToSearch ? getReplyPost(replyPost, collectionsToSearch, index) : false
 }
 
 function getIsApproved(body: any, options: CommentOptions) {
