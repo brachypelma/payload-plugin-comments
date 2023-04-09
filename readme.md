@@ -183,7 +183,7 @@ The custom API endpoint path for this colllection. **This endpoint should only b
 
 Default value: `/add-comment`
 
-### method: `post`
+### method: `string`
 
 HTTP verb used to access the custom endpoint for handling incoming comments. [More information in Payload's documentation on custom API endpoints](https://payloadcms.com/docs/rest-api/overview#custom-endpoints)
 
@@ -199,11 +199,17 @@ Default value: `[]`
 
 An array of strings, each string being a slug for a collection in your Payload instance that can have comments. Comments are linked to other collection items via a relationship field, so it is necessary to know which collections comments can be attached to.
 
+**NB, for this plugin to work, it is necessary to override the default value for this, since this value is set to an empty array be default.**
+
 Default value: `[]`
 
 ### sendAlert: `boolean`
 
+Determines whether to send email alerts to specified email addresses when your Payload instance receives a new comment submission.
 
+Default value: `false`
+
+### alertRecipients: 
 
 ## `processComment` Handler for New Comments
 
