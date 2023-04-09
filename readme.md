@@ -107,7 +107,7 @@ const defaultOptions = {
 }
 ```
 
-If you pass in an options object to `comments()`, whatever property/value pairs you include in your options will override the defaults. Any properties overridden will fall back to their default values.
+If you pass in an options object to `comments()`, whatever property/value pairs you include in your options will override the defaults. Any properties not overridden by the options object you pass will fall back to their default values.
 
 ### slug: `string`
 
