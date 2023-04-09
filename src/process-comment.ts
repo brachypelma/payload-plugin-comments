@@ -26,8 +26,6 @@ export default async function processComment(
   if (!replyPost) {
     return response(res, 'We were unable to find a target for your submission.')
   }
-  // Why is this using body.id???
-  // And don't we need a function for replyComment as well??
 
   const isApproved = getIsApproved(body, options)
   const data = getNewCommentData(body, fields, isApproved)
