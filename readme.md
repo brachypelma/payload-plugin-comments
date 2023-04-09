@@ -189,7 +189,7 @@ The plugin will ensure that your collection always has a field with the name `is
 
 ##### `replyPost`: `Field`
 
-The plugin will ensure that your collection always has a field with the name `replyComment` with a type of `checkbox`. You can override the `relationTo` value by passing a comments object to the `comment` function with the following in your option object's `fields` array:
+The plugin will ensure that your collection always has a field with the name `replyComment` with a type of `checkbox`. You can override the `relationTo` value by passing a comments object to the `comment` function with the following in your option object's `fields` array, replacing `'my-collection-slug'` with the `slug` of the collection you would like to associate with comments, or an array of `slug`s if you would like to allow users to comment on items in multiple collections:
 
 ```js
 {
