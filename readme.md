@@ -257,7 +257,38 @@ By default, the plugin will try to constuct this from the `serverURL` and `route
 
 Default value: `serverURL + routes.admin` from your Payload config.
 
+### autoPublish: `boolean`
 
+Determines whether to allow automatic approval of incoming comments when they are received by the [`processComment` handler](#processcomment-handler-for-new-comments).
+
+If `autoPublish` is set to `true` and [`autoPublishConditions`](#autopublishconditions-string) is set to an empty array, all incoming comments will be saved to your Payload instance with an the `isApproved` field value set to `true`.
+
+If `autoPublish` is set to `true` and [`autoPublishConditions`](#autopublishconditions-string) contains one or more item, then when the [`processComment` handler](#processcomment-handler-for-new-comments) processes an incoming comment, the handler will search the `body` of the API `Request` for properties matching the value of each string in the `autoPubishConditions` array and set the `isApproved` value of the incoming comment based on its evaluation of the truthiness of eahc condition. (See `[autoPublishConditions](#autopublishconditions-string)`) for more information.
+
+If `autoPublish` is set to `false`, every comment that `processComment` can properly handle will be saved to your Payload instance with an `isApproved` value of `false`.
+
+Default value: `false`
+
+### autoPublishConditions `string[]`
+
+If `[autoPublish](#autopublish-boolean)` is set to `true`, then this array contains a list of strings that should match values on the `body` of the `Requset` dispatched to the custom API endpoint for comments used to handle incoming comments (See [`path`](#path-string)).
+
+When processing incoming comments, if `autoPublish` is `true` and `autoPublishConditions` contains one or more `string` values, the [`processComment` handler](#processcomment-handler-for-new-comments) will evaluate the `body` of the API `Request` received for the truthiness of all the conditions on the `body` as follows:
+
+```ts
+function getIsApproved(body: any, options: CommentOptions) {
+  const { autoPublish, autoPublishConditions } = options
+  
+  if (!autoPublish || !body) return false
+  if (!autoPublishConditions?.length) return true
+
+  return autoPublishConditions.filter(cond => !body[cond]).length === 0
+}
+```
+
+If `getIsApproved` returns `true`, then the incoming comment will be saved to your Payload instance with an `isApproved` value of `true`. Otherwise, it will be saved with an `isApproved` value of `false`.
+
+Default value: `[]`
 
 ## `processComment` Handler for New Comments
 
