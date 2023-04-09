@@ -350,4 +350,18 @@ If there are `slug`s listed in the array, proceed to the next step of function e
 
 #### Look up the matching `replyPost`
 
-Search for an existing item in one of the collections receiving comments matching the value of the ``
+Call the `getReplyPost` function to search all collections receiving comments for an item whose `id` matches the value of the incoming `Request` `body`'s `replyPost` property value.
+
+**NB, your `Request` body MUST have a `replyPost` property whose value is set to the ID of the item in the Payload instance being commented on**
+
+If no matching item is found in the Payload instance, the function will return a `Response` with code `400` and the message `''We were unable to find a target for your submission.''`
+
+## Submitting a `Request` to the `/add-comment` API Endpoint
+
+Given the execution steps of the [`processComment` handler function for the default `/add-comment` endpoint outlined above](#processcomment-handler-for-new-comments), you will need to make that that when you configure a website `form`, application, or other tool for submitting comments to your Payload instance, the `body` of the `Request` you submit to the Payload API has the following to ensure users are able to successfully use your form/etc. to submit comments.
+
+### `Request` object `body`
+
+* The `body` of your `Request` must have a `replyPost` property whose value matches the ID of the post, product, or other Payload database item that will receive the comment being submitted.
+
+* All other `body` properties that you want to have recorded in a Collection `Field` must have a property name matching the `Field` name and a value matching the intended value of the `Field` for the comment being processed.
