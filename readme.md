@@ -113,7 +113,7 @@ If you pass in an options object to `comments()`, whatever property/value pairs 
 
 ### slug: `string`
 
-Matches the `slug` property of the comments collection created. [Payload documention on Collections](https://payloadcms.com/docs/configuration/collections)
+Matches the `slug` property of the comments collection created. [More information in Payload's documentation on Collections](https://payloadcms.com/docs/configuration/collections)
 
 Default value: `'comments'`
 
@@ -125,7 +125,7 @@ Default value: `'comment'`
 
 ### admin `{defaultColumns: string[], useAsTitle: string}`
 
-Matches admin property of Payload collection config. [Payload documention on Collections](https://payloadcms.com/docs/configuration/collections)
+Matches admin property of Payload collection config. [More information in Payload's documentation on Collections](https://payloadcms.com/docs/configuration/collections)
 
 Default value:
 `{
@@ -134,5 +134,61 @@ Default value:
 }`
 
 ### fields `Field[]`
+
+An array of [Payload Collection Fields](https://payloadcms.com/docs/fields/overview) that will appear on the Payload admin screen. This will generally contain the content of the comment, the author, whether the comment is approved for display, and any other data you wish to store regarding the comment, whether it is authored by person submitting the comment or by the Payload admin.
+
+Default value:
+
+```js
+{
+  name: 'author',
+  type: 'text',
+},
+{
+  name: 'email',
+  type: 'email',
+},
+{
+  name: 'content',
+  type: 'textarea'
+},
+{
+  name: 'replyPost',
+  type: 'relationship',
+  relationTo: 'posts',
+},
+{
+  name: 'replyComment',
+  type: 'relationship',
+  relationTo: 'comments',
+},
+{
+  name: 'isApproved',
+  type: 'checkbox',
+  defaultValue: false,
+},
+```
+
+### timestamps `boolean`
+
+Determines whether to use Payload's built-in `createdAt` and `updatedAt` timestamps on your comments collection. [More information in Payload's documentation on Collections](https://payloadcms.com/docs/configuration/collections)
+
+Default value: `true`
+
+### path: `string`
+
+The custom API endpoint path for this colllection. **This endpoint should only be used for handling incoming comments,** e.g. as an endpoint for a comment form on your article or post, because it is tethered to the [`processComment` handler](#processcomment-handler-for-new-comments), which handles incoming comments submitted to your Payload instance.
+
+[More information in Payload's documentation on custom API endpoints](https://payloadcms.com/docs/rest-api/overview#custom-endpoints)
+
+Default value: `/add-comment`
+
+### method: `post`
+
+HTTP verb used to access the custom endpoint for handling incoming comments. [More information in Payload's documentation on custom API endpoints](https://payloadcms.com/docs/rest-api/overview#custom-endpoints)
+
+Default value: `post`
+
+## `processComment` Handler for New Comments
 
 

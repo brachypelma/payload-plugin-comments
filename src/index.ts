@@ -53,6 +53,7 @@ export const defaultOptions: CommentOptions = {
   alertEditUrlBase: '',
   autoPublish: false,
   autoPublishConditions: [],
+  additionalEndpoints: [],
 }
 
 function getProcessedOptions(
@@ -72,7 +73,15 @@ function getProcessedOptions(
 
 const comments = (incomingOptions: IncomingOptions = {}) => (incomingConfig: Config): Config => {
   const processedOptions = getProcessedOptions(incomingOptions, incomingConfig)
-  const { slug, fields, admin, timestamps, path, method } = processedOptions
+  const {
+    slug,
+    fields,
+    admin,
+    timestamps,
+    path,
+    method,
+    additionalEndpoints,
+  } = processedOptions
   const commentCollection = {
     slug,
     fields,
@@ -81,13 +90,16 @@ const comments = (incomingOptions: IncomingOptions = {}) => (incomingConfig: Con
       read: () => true,
     },
     timestamps,
-    endpoints: [{
-      path,
-      method,
-      handler: async (req: Request, res: Response) => {
-        return await processComment(req, res, processedOptions)
+    endpoints: [
+      {
+        path,
+        method,
+        handler: async (req: Request, res: Response) => {
+          return await processComment(req, res, processedOptions)
+        },
       },
-    }],
+      ...additionalEndpoints,
+    ],
   }
   const collections: CollectionConfig[] = incomingConfig.collections ?? []
 
