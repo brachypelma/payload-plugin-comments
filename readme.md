@@ -213,6 +213,50 @@ Default value: `false`
 
 Array of email addresses that should receive email alerts when a new comment is sucessfully processed by the [`processComment` handler](#processcomment-handler-for-new-comments) if [`sendAlert`](#sendalert-boolean) is set to `true`.
 
+Default value: `[]`
+
+### alertFrom: `string`
+
+The value that your Payload instance's Nodemailer instance will use as the "From" address when a new comment is sucessfully processed by the [`processComment` handler](#processcomment-handler-for-new-comments) if [`sendAlert`](#sendalert-boolean) is set to `true`.
+
+[See the Nodemailer documentation for formatting options.](https://nodemailer.com/message/)
+
+Default value: `''`
+
+### alertSubject: `string`
+
+The subject line your Payload instance's Nodemailer instance will use for email alerts when a new comment is sucessfully processed by the [`processComment` handler](#processcomment-handler-for-new-comments) if [`sendAlert`](#sendalert-boolean) is set to `true`.
+
+Default value: `'Your site received a new comment'`
+
+### alertIntro: `string`
+
+The opening line of the email alert to be sent  when a new comment is sucessfully processed by the [`processComment` handler](#processcomment-handler-for-new-comments) if [`sendAlert`](#sendalert-boolean) is set to `true`.
+
+**NB, the content of this should be in HTML, not plain text.**
+
+This line will display above a table listing the field values for the incoming process you are being alerted about.
+
+Default value: `'<p>Your site received the following comment.</p>'`
+
+### alertClosing: `string`
+
+The closing line of the email alert to be sent  when a new comment is sucessfully processed by the [`processComment` handler](#processcomment-handler-for-new-comments) if [`sendAlert`](#sendalert-boolean) is set to `true`.
+
+**NB, the content of this should be in HTML, not plain text.**
+
+This line will display below a table listing the field values for the incoming process you are being alerted about and a link to the Payload admin page where admins can review, approve, edit, or delete the incoming comment.
+
+Default value: `'<p>Please log in to review, approve, or delete this comment.</p>'`
+
+### alertEditUrlBase: `string`
+
+If you are sending email alerts when new comments are received, the email you receive will contain a direct link to the Payload admin page for that new comment, making it easier for you to approve, edit, or delete the incoming comment. To construct this URL, the plugin takes the root URL to which your Payload instance is deployed and adds a URL path to the comment. The `alertEditUrlBase` property provides the base of the URL used in the email, consisting of the protocol, the subdomain, the domain name, the domain extension, and the admin directory for the site, e.g. `https://www.example-payload-deployment.com/admin`.
+
+By default, the plugin will try to constuct this from the `serverURL` and `routes.admin` properties in your [Payload configuration](https://payloadcms.com/docs/configuration/overview), if provided. If `routes.admin` is not set, the plugin will fall back to the default `admin` path.
+
+Default value: `serverURL + routes.admin` from your Payload config.
+
 
 
 ## `processComment` Handler for New Comments

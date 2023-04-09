@@ -3,6 +3,7 @@ import { CollectionConfig } from 'payload/types'
 import { CommentOptions, IncomingOptions } from './types'
 import processComment from './process-comment'
 import { Request, Response } from "express"
+import getProcessedOptions from './process-options'
 
 export const defaultOptions: CommentOptions = {
   slug: 'comments',
@@ -54,21 +55,6 @@ export const defaultOptions: CommentOptions = {
   autoPublish: false,
   autoPublishConditions: [],
   additionalEndpoints: [],
-}
-
-function getProcessedOptions(
-  incomingOptions: IncomingOptions,
-  incomingConfig: Config,
-): CommentOptions {
-  const options = Object.assign({ ...defaultOptions }, incomingOptions)
-  const { serverURL, routes } = incomingConfig
-
-  if (options.sendAlert && !options.alertEditUrlBase && serverURL) {
-    const adminDir = routes?.admin ?? 'admin'
-    options.alertEditUrlBase = serverURL + adminDir
-  }
-
-  return options
 }
 
 const comments = (incomingOptions: IncomingOptions = {}) => (incomingConfig: Config): Config => {
