@@ -12,6 +12,9 @@ export default function getProcessedOptions(
   // Make sure we have a properly-formatted `isApproved` field
   setIsApprovedField(options)
 
+  // Make sure we hae a properly-formatted `replyPost` field
+  setReplyPostField(options)
+
   return options
 }
 
@@ -30,19 +33,39 @@ function assignOptions(
   return options
 }
 
-function setIsApprovedField(options: CommentOptions) {
+function getRequiredFieldData(options: CommentOptions, fieldName: string) {
   const fields = options.fields as FieldBase[]
-  const isApprovedFieldBase = fields.find(({ name }) => name === 'isApproved')
-  const hasIsApprovedField = !!isApprovedFieldBase
-  const isApprovedField = hasIsApprovedField ? isApprovedFieldBase as Field : null
+  const fieldBase = fields.find(({ name }) => name === fieldName)
+  const hasField = !!fieldBase
+  const reqField = hasField ? fieldBase as Field : null
+
+  return { hasField, reqField }
+}
+
+function setIsApprovedField(options: CommentOptions) {
+  const { hasField, reqField } = getRequiredFieldData(options, 'isApproved')
   
-  if (!hasIsApprovedField) {
+  if (!hasField) {
     options.fields.push({
       name: 'isApproved',
       type: 'checkbox',
       defaultValue: false,
     })
-  } else if (isApprovedField) {
-    isApprovedField.type = 'checkbox'
+  } else if (reqField) {
+    reqField.type = 'checkbox'
+  }
+}
+
+function setReplyPostField(options: CommentOptions) {
+  const { hasField, reqField } = getRequiredFieldData(options, 'replyPost')
+  
+  if (!hasField) {
+    options.fields.push({
+      name: 'replyPost',
+      type: 'relationship',
+      relationTo: 'posts',
+    })
+  } else if (reqField) {
+    reqField.type = 'relationship'
   }
 }
