@@ -48,9 +48,7 @@ export default buildConfig({
 });
 ```
 
-## Options
-
-### Default options
+## Default options
 
 If you call `comments()` without an options object, the plugin will add a Comments collection to your Payload instance with the following default options:
 
@@ -106,6 +104,8 @@ const defaultOptions = {
   autoPublishConditions: [],
 }
 ```
+
+## Options
 
 If you pass in an options object to `comments()`, whatever property/value pairs you include in your options will override the defaults. Any properties not overridden by the options object you pass will fall back to their default values.
 
