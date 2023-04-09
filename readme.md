@@ -183,7 +183,7 @@ The plugin will ensure that your collection always has a field with the name `is
 {
   name: 'isApproved',
   type: 'checkbox',
-  defaultValue: false,
+  defaultValue: true,
 }
 ```
 
