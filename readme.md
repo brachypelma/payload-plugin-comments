@@ -189,6 +189,22 @@ HTTP verb used to access the custom endpoint for handling incoming comments. [Mo
 
 Default value: `post`
 
+### additionalEndpoints: `Omit<Endpoint, "root">[]`
+
+And array of [Payload Custom Endpoints](https://payloadcms.com/docs/rest-api/overview#custom-endpoints) to add to your comments collection beyond the default endpoint added to handling incoming comments.
+
+Default value: `[]`
+
+### collectionsAllowingComments `string[]`
+
+An array of strings, each string being a slug for a collection in your Payload instance that can have comments. Comments are linked to other collection items via a relationship field, so it is necessary to know which collections comments can be attached to.
+
+Default value: `[]`
+
+### sendAlert: `boolean`
+
+
+
 ## `processComment` Handler for New Comments
 
 

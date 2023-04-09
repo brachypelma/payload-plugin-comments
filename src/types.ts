@@ -10,6 +10,7 @@ export type CommentOptions = { // All properties required
   timestamps: boolean,
   path: string,
   method: string,
+  additionalEndpoints: Omit<Endpoint, "root">[],
   collectionsAllowingComments: string[],
   sendAlert: boolean,
   alertRecipients: string[],
@@ -20,7 +21,6 @@ export type CommentOptions = { // All properties required
   alertEditUrlBase: string,
   autoPublish: boolean,
   autoPublishConditions: string[],
-  additionalEndpoints: Omit<Endpoint, "root">[],
 }
 
 export type IncomingOptions = { // Same as CommentOptions, but properties optional
@@ -31,6 +31,7 @@ export type IncomingOptions = { // Same as CommentOptions, but properties option
   timestamps?: boolean,
   path?: string,
   method?: string,
+  additionalEndpoints?: Omit<Endpoint, "root">[],
   collectionsAllowingComments?: string[],
   sendAlert?: boolean,
   alertRecipients?: string[],
@@ -41,5 +42,4 @@ export type IncomingOptions = { // Same as CommentOptions, but properties option
   alertEditUrlBase?: string,
   autoPublish?: boolean,
   autoPublishConditions?: string[],
-  additionalEndpoints?: Omit<Endpoint, "root">[],
 }

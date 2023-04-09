@@ -43,7 +43,7 @@ export const defaultOptions: CommentOptions = {
   timestamps: true,
   path: '/add-comment',
   method: 'post',
-  collectionsAllowingComments: ['posts'],
+  collectionsAllowingComments: [],
   sendAlert: false,
   alertRecipients: [],
   alertFrom: '',
