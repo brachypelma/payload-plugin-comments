@@ -1,7 +1,5 @@
 # Payload Comments Plugin
 
-[![NPM]()]()
-
 A fully-customizable plugin for [Payload CMS](https://github.com/payloadcms/payload) to create a collection for comments, reviews, or other user-submitted feedback on your website or web application.
 
 ## Core features:
