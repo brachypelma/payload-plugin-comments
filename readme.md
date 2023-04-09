@@ -217,7 +217,7 @@ The custom API endpoint path for this colllection. **This endpoint should only b
 
 Default value: `/add-comment`
 
-### method: `'get'|'head'|'post'|'put'|'delete'|'connect'|'options'`
+### method: `'get'|'post''`
 
 HTTP verb used to access the custom endpoint for handling incoming comments. [More information in Payload's documentation on custom API endpoints](https://payloadcms.com/docs/rest-api/overview#custom-endpoints)
 
@@ -325,5 +325,15 @@ If `getIsApproved` returns `true`, then the incoming comment will be saved to yo
 Default value: `[]`
 
 ## `processComment` Handler for New Comments
+
+This is the handler function for the default `/add-comment` endpoint for the comments collection created by this plugin. Understanding how this function handles incoming comments is necessary to allow you to configure forms or other tools to allow people to submit comments to your Payload instance.
+
+### Arguments
+
+The handler receives three arguments:
+
+* `{ body }`: The `body` of an incoming Express [`Request`](https://expressjs.com/en/api.html#req) object
+* `res`: An Express [`Response`](https://expressjs.com/en/api.html#res) object to be returned by the default `/add-comment` endpoint after handling the incoming `Request`.
+* `options`: The `CommentOptions` object for your comments collection [see `options` documentation](#options)
 
 
