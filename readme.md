@@ -169,6 +169,38 @@ Default value:
 },
 ```
 
+#### Required fields
+
+**Although plugin users can define their own fields, two fields, `isApproved` and `replyPost` are required and will always be added to the collection, since they are vital to the functionality of the plugin**
+
+##### `isApproved`: `Field`
+
+The plugin will ensure that your collection always has a field with the name `isApproved` with a type of `checkbox`. If you want to se the `defaultValue` to `true`, you can include the following in your `fields` array when passing in options to the `comment` function:
+
+```js
+{
+  name: 'isApproved',
+  type: 'checkbox',
+  defaultValue: false,
+}
+```
+
+[Read the Payload documentation on Collection Fields for more information.](https://payloadcms.com/docs/fields/relationship)
+
+##### `replyPost`: `Field`
+
+The plugin will ensure that your collection always has a field with the name `replyComment` with a type of `checkbox`. You can override the `relationTo` value by passing a comments object to the `comment` function with the following in your option object's `fields` array:
+
+```js
+{
+  name: 'replyPost',
+  type: 'relationship',
+  relationTo: 'my-collection-slug',
+}
+```
+
+[Read the Payload documentation on Collection Fields for more information.](https://payloadcms.com/docs/fields/relationship)
+
 ### timestamps `boolean`
 
 Determines whether to use Payload's built-in `createdAt` and `updatedAt` timestamps on your comments collection. [More information in Payload's documentation on Collections](https://payloadcms.com/docs/configuration/collections)
