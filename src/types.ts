@@ -1,13 +1,6 @@
 import { CollectionAdminOptions } from 'payload/dist/collections/config/types'
 import { Field } from 'payload/types'
-import { Response } from 'express'
-
-type Endpoint = {
-  path: string,
-  method: 'get'|'head'|'post'|'put'|'delete'|'connect'|'options'
-  handler: (req: Request, res: Response) => Promise<Response<any, Record<string, any>>>
-  root?: boolean,
-}
+import { Endpoint } from 'payload/config'
 
 export type CommentOptions = { // All properties required
   slug: string,
@@ -27,7 +20,7 @@ export type CommentOptions = { // All properties required
   alertEditUrlBase: string,
   autoPublish: boolean,
   autoPublishConditions: string[],
-  additionalEndpoints: Endpoint[],
+  additionalEndpoints: Omit<Endpoint, "root">[],
 }
 
 export type IncomingOptions = { // Same as CommentOptions, but properties optional
@@ -48,4 +41,5 @@ export type IncomingOptions = { // Same as CommentOptions, but properties option
   alertEditUrlBase?: string,
   autoPublish?: boolean,
   autoPublishConditions?: string[],
+  additionalEndpoints?: Omit<Endpoint, "root">[],
 }

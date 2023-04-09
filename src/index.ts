@@ -82,7 +82,7 @@ const comments = (incomingOptions: IncomingOptions = {}) => (incomingConfig: Con
     method,
     additionalEndpoints,
   } = processedOptions
-  const commentCollection = {
+  const commentCollection: CollectionConfig = {
     slug,
     fields,
     admin,
