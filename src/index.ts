@@ -42,8 +42,8 @@ export const defaultOptions: CommentOptions = {
     },
   ],
   timestamps: true,
-  path: '/add-comment',
-  method: 'post',
+  addCommentPath: '/add-comment',
+  addCommentMethod: 'post',
   collectionsAllowingComments: [],
   sendAlert: false,
   alertRecipients: [],
@@ -64,8 +64,8 @@ const comments = (incomingOptions: IncomingOptions = {}) => (incomingConfig: Con
     fields,
     admin,
     timestamps,
-    path,
-    method,
+    addCommentPath,
+    addCommentMethod,
     additionalEndpoints,
   } = processedOptions
   const commentCollection: CollectionConfig = {
@@ -78,11 +78,18 @@ const comments = (incomingOptions: IncomingOptions = {}) => (incomingConfig: Con
     timestamps,
     endpoints: [
       {
-        path,
-        method,
+        path: addCommentPath,
+        method: addCommentMethod,
         handler: async (req: Request, res: Response) => {
           return await processComment(req, res, processedOptions)
         },
+      },
+      {
+        path: '/has-published-comment',
+        method: 'post',
+        handler: async (req: Request, res: Response) => {
+          return await processComment(req, res, processedOptions)
+        }
       },
       ...additionalEndpoints,
     ],
