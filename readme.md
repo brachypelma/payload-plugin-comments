@@ -92,9 +92,12 @@ const defaultOptions = {
     },
   ],
   timestamps: true,
-  path: '/add-comment',
-  method: 'post',
-  collectionsAllowingComments: ['posts'],
+  addCommentPath: '/add-comment',
+  addCommentMethod: 'post',
+  hasPublishedCommentPath: '/has-published-comment',
+  hasPublishedCommentMethod: 'post',
+  hasPublishedCommentAuthorField: 'author',
+  collectionsAllowingComments: [],
   sendAlert: false,
   alertRecipients: [],
   alertFrom: '',
@@ -104,6 +107,7 @@ const defaultOptions = {
   alertEditUrlBase: '',
   autoPublish: false,
   autoPublishConditions: [],
+  additionalEndpoints: [],
 }
 ```
 
@@ -209,17 +213,35 @@ Determines whether to use Payload's built-in `createdAt` and `updatedAt` timesta
 
 Default value: `true`
 
-### path: `string`
+### addCommentPath: `string`
 
-The custom API endpoint path for this colllection. **This endpoint should only be used for handling incoming comments,** e.g. as an endpoint for a comment form on your article or post, because it is tethered to the [`processComment` handler](#processcomment-handler-for-new-comments), which handles incoming comments submitted to your Payload instance.
+The custom API endpoint path used to add items to this colllection. **This endpoint should only be used for handling incoming comments,** e.g. as an endpoint for a comment form on your article or post, because it is tethered to the [`processComment` handler](#processcomment-handler-for-new-comments), which handles incoming comments submitted to your Payload instance.
 
 [More information in Payload's documentation on custom API endpoints](https://payloadcms.com/docs/rest-api/overview#custom-endpoints)
 
 Default value: `/add-comment`
 
-### method: `'get'|'post''`
+### addCommentMethod: `'get'|'post''`
 
-HTTP verb used to access the custom endpoint for handling incoming comments. [More information in Payload's documentation on custom API endpoints](https://payloadcms.com/docs/rest-api/overview#custom-endpoints)
+HTTP verb used to access the default `/add-comment` endpoint for handling incoming comments. [More information in Payload's documentation on custom API endpoints](https://payloadcms.com/docs/rest-api/overview#custom-endpoints)
+
+Default value: `post`
+
+### hasPublishedCommentAuthorField: `string`
+
+Default value: `'author'`
+
+### hasPublishedCommentPath: `string`
+
+The custom API endpoint path used to add items to this colllection. **This endpoint should only be used for handling incoming comments,** e.g. as an endpoint for a comment form on your article or post, because it is tethered to the [`processComment` handler](#processcomment-handler-for-new-comments), which handles incoming comments submitted to your Payload instance.
+
+[More information in Payload's documentation on custom API endpoints](https://payloadcms.com/docs/rest-api/overview#custom-endpoints)
+
+Default value: `/add-comment`
+
+### hasPublishedCommentMethod: `'get'|'post''`
+
+HTTP verb used to access the default `/add-comment` endpoint for handling incoming comments. [More information in Payload's documentation on custom API endpoints](https://payloadcms.com/docs/rest-api/overview#custom-endpoints)
 
 Default value: `post`
 
@@ -305,7 +327,7 @@ Default value: `false`
 
 ### autoPublishConditions `string[]`
 
-If `[autoPublish](#autopublish-boolean)` is set to `true`, then this array contains a list of strings that should match values on the `body` of the `Requset` dispatched to the custom API endpoint for comments used to handle incoming comments (See [`path`](#path-string)).
+If `[autoPublish](#autopublish-boolean)` is set to `true`, then this array contains a list of strings that should match values on the `body` of the `Requset` dispatched to the custom API endpoint for comments used to handle incoming comments (See [`addCommentPath`](#addcommentpath-string)).
 
 When processing incoming comments, if `autoPublish` is `true` and `autoPublishConditions` contains one or more `string` values, the [`processComment` handler](#processcomment-handler-for-new-comments) will evaluate the `body` of the API `Request` received for the truthiness of all the conditions on the `body` as follows:
 
