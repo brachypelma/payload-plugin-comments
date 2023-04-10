@@ -396,4 +396,10 @@ Given the execution steps of the [`processComment` handler function for the defa
 
 ## Comment Validation
 
+We leave comment validation/approval up to the user. However, facilitate usage of this plugin, we outline how you might implement some common validation schemas in your application below.
+
+### Automatically Approve All Comments Submitted
+
+
+
 ### Using `has-published-comment` API Endpoint
