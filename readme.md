@@ -365,3 +365,16 @@ Given the execution steps of the [`processComment` handler function for the defa
 * The `body` of your `Request` must have a `replyPost` property whose value matches the ID of the post, product, or other Payload database item that will receive the comment being submitted.
 
 * All other `body` properties that you want to have recorded in a Collection `Field` must have a property name matching the `Field` name and a value matching the intended value of the `Field` for the comment being processed. For instance, if you are using the default `fields` option, then the `body` of your `Request` to the `/add-post` API endpoint should include properties named `author`, `email`, etc.
+
+* If you are using `autoPublishConditions`, any conditions you want to use to evaluate whether to automatically publish a commpent passed to the `/add-comment` API endpoint must be included as properties of the `body` of the `Request` to the API endpoint. The `isApproved` field wiill be set to `true` if and only if every string in the `autoPublishConditions` array matches a property on `body` of the incoming `Request` and the value of every matching property of the `body` is truthy:
+
+```ts
+function getIsApproved(body: any, options: CommentOptions) {
+  const { autoPublish, autoPublishConditions } = options
+  
+  if (!autoPublish || !body || typeof body !== 'object') return false
+  if (!autoPublishConditions?.length) return true
+
+  return autoPublishConditions.filter(cond => !body[cond]).length === 0
+}
+```
