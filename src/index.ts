@@ -44,6 +44,8 @@ export const defaultOptions: CommentOptions = {
   timestamps: true,
   addCommentPath: '/add-comment',
   addCommentMethod: 'post',
+  hasPublishedCommentPath: '/has-published-comment',
+  hasPublishedCommentMethod: 'post',
   collectionsAllowingComments: [],
   sendAlert: false,
   alertRecipients: [],
