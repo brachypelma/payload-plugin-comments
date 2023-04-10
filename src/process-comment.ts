@@ -80,7 +80,7 @@ async function getReplyPost(
 function getIsApproved(body: any, options: CommentOptions) {
   const { autoPublish, autoPublishConditions } = options
   
-  if (!autoPublish || !body) return false
+  if (!autoPublish || !body || typeof body !== 'object') return false
   if (!autoPublishConditions?.length) return true
 
   return autoPublishConditions.filter(cond => !body[cond]).length === 0
