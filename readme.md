@@ -229,7 +229,7 @@ Default value: `post`
 
 ### hasPublishedCommentPath: `string`
 
-The custom API endpoint path used to add items to this colllection. **This endpoint should only be used for handling incoming comments,** e.g. as an endpoint for a comment form on your article or post, because it is tethered to the [`processComment` handler](#processcomment-handler-for-new-comments), which handles incoming comments submitted to your Payload instance.
+The custom API endpoint path used to check whether a given author already has an approved comment in the current Payload instance. This API endpoint may be useful for [validating submitted comments.](#using-has-published-comment-api-endpoint)
 
 [More information in Payload's documentation on custom API endpoints](https://payloadcms.com/docs/rest-api/overview#custom-endpoints)
 
@@ -237,7 +237,9 @@ Default value: `/has-published-comment`
 
 ### hasPublishedCommentMethod: `'get'|'post''`
 
-HTTP verb used to access the default `/add-comment` endpoint for handling incoming comments. [More information in Payload's documentation on custom API endpoints](https://payloadcms.com/docs/rest-api/overview#custom-endpoints)
+HTTP verb used to access the default `/has-published-comment` endpoint that [may be useful for comment validation.](#using-has-published-comment-api-endpoint)
+
+[More information in Payload's documentation on custom API endpoints](https://payloadcms.com/docs/rest-api/overview#custom-endpoints)
 
 Default value: `post`
 
@@ -391,3 +393,7 @@ Given the execution steps of the [`processComment` handler function for the defa
 * All other `body` properties that you want to have recorded in a Collection `Field` must have a property name matching the `Field` name and a value matching the intended value of the `Field` for the comment being processed. For instance, if you are using the default `fields` option, then the `body` of your `Request` to the `/add-post` API endpoint should include properties named `author`, `email`, etc.
 
 * If you are using `autoPublishConditions`, any conditions you want to use to evaluate whether to automatically publish a commpent passed to the `/add-comment` API endpoint must be included as properties of the `body` of the `Request` to the API endpoint. The `isApproved` field wiill be set to `true` if and only if every string in the `autoPublishConditions` array matches a property on `body` of the incoming `Request` and the value of every matching property of the `body` is truthy ([See evaluation source code in `autoPublishConditions` documentation](#autopublishconditions-string))
+
+## Comment Validation
+
+### Using `has-published-comment` API Endpoint
