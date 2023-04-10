@@ -4,6 +4,7 @@ import { CommentOptions, IncomingOptions } from './types'
 import processComment from './process-comment'
 import { Request, Response } from "express"
 import getProcessedOptions from './process-options'
+import hasPublishedComment from './has-published-comment'
 
 export const defaultOptions: CommentOptions = {
   slug: 'comments',
@@ -68,6 +69,8 @@ const comments = (incomingOptions: IncomingOptions = {}) => (incomingConfig: Con
     timestamps,
     addCommentPath,
     addCommentMethod,
+    hasPublishedCommentPath,
+    hasPublishedCommentMethod,
     additionalEndpoints,
   } = processedOptions
   const commentCollection: CollectionConfig = {
@@ -87,10 +90,10 @@ const comments = (incomingOptions: IncomingOptions = {}) => (incomingConfig: Con
         },
       },
       {
-        path: '/has-published-comment',
-        method: 'post',
+        path: hasPublishedCommentPath,
+        method: hasPublishedCommentMethod,
         handler: async (req: Request, res: Response) => {
-          return await processComment(req, res, processedOptions)
+          return await hasPublishedComment(req, res, processedOptions)
         }
       },
       ...additionalEndpoints,
