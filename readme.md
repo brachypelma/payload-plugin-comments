@@ -227,23 +227,25 @@ HTTP verb used to access the default `/add-comment` endpoint for handling incomi
 
 Default value: `post`
 
-### hasPublishedCommentAuthorField: `string`
-
-Default value: `'author'`
-
 ### hasPublishedCommentPath: `string`
 
 The custom API endpoint path used to add items to this colllection. **This endpoint should only be used for handling incoming comments,** e.g. as an endpoint for a comment form on your article or post, because it is tethered to the [`processComment` handler](#processcomment-handler-for-new-comments), which handles incoming comments submitted to your Payload instance.
 
 [More information in Payload's documentation on custom API endpoints](https://payloadcms.com/docs/rest-api/overview#custom-endpoints)
 
-Default value: `/add-comment`
+Default value: `/has-published-comment`
 
 ### hasPublishedCommentMethod: `'get'|'post''`
 
 HTTP verb used to access the default `/add-comment` endpoint for handling incoming comments. [More information in Payload's documentation on custom API endpoints](https://payloadcms.com/docs/rest-api/overview#custom-endpoints)
 
 Default value: `post`
+
+### hasPublishedCommentAuthorField: `string`
+
+Name of the field used to check whether someone already has an approved comment saved in the current Payload instance when dispatching a `Request` to the [`/has-published-comment` API endpoint](#haspublishedcommentpath-string). The field name should match the name of a property in the `body` of any `Request` passed to this API endpoint. By default, we use the `author` field from the list of default Collection Fields for the Comments collection.
+
+Default value: `'author'`
 
 ### additionalEndpoints: `Omit<Endpoint, "root">[]`
 
