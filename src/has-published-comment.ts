@@ -11,6 +11,7 @@ export default async function hasPublishedComment(
   const { hasPublishedCommentAuthorField, slug } = options
   const bodyAuthor = body && typeof body === 'object'
     ? body[hasPublishedCommentAuthorField] : false
+  let hasPublishedComment = false
 
   if (
     !hasPublishedCommentAuthorField ||
@@ -18,25 +19,9 @@ export default async function hasPublishedComment(
     !bodyAuthor ||
     typeof bodyAuthor !== 'string'
   ) {
-    return response(false, res)
+    return res.status(200).json(hasPublishedComment)
   }
 
-  const hasApprovedComment = await getHasApprovedComment(
-    bodyAuthor, hasPublishedCommentAuthorField, slug
-  )
-
-  return response(hasApprovedComment, res)
-}
-
-function response(hasPublishedComment: boolean, res: Response) {
-  return res.status(200).json(hasPublishedComment)
-}
-
-async function getHasApprovedComment(
-  bodyAuthor: string,
-  hasPublishedCommentAuthorField: string,
-  slug: string,
-): Promise<boolean> {
   const where: Where = {
     isApproved: {
       equals: true
@@ -44,11 +29,12 @@ async function getHasApprovedComment(
   }
   where[hasPublishedCommentAuthorField] = { equals: bodyAuthor }
 
-  const post = await payload.find({
+  const { docs } = await payload.find({
     collection: slug,
     limit: 1,
     where,
   })
+  hasPublishedComment = docs?.length > 0
 
-  return post?.docs?.length > 0
+  return res.status(200).json(hasPublishedComment)
 }
