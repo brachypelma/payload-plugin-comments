@@ -364,4 +364,4 @@ Given the execution steps of the [`processComment` handler function for the defa
 
 * The `body` of your `Request` must have a `replyPost` property whose value matches the ID of the post, product, or other Payload database item that will receive the comment being submitted.
 
-* All other `body` properties that you want to have recorded in a Collection `Field` must have a property name matching the `Field` name and a value matching the intended value of the `Field` for the comment being processed.
+* All other `body` properties that you want to have recorded in a Collection `Field` must have a property name matching the `Field` name and a value matching the intended value of the `Field` for the comment being processed. For instance, if you are using the default `fields` option, then the `body` of your `Request` to the `/add-post` API endpoint should include properties named `author`, `email`, etc.
