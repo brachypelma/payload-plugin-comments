@@ -70,7 +70,7 @@ async function getReplyPost(
     where: { id: { equals: replyPost } },
   })
 
-  if (post) return post
+  if (post?.docs?.length > 0) return post
 
   const moreToSearch = ++index < (collectionsToSearch.length - 1)
 
