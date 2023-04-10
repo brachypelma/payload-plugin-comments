@@ -58,11 +58,11 @@ function response(
 }
 
 async function getReplyPost(
-  replyPost: string,
+  replyPost: string|undefined,
   collectionsToSearch: string[],
   index = 0
 ): Promise<PaginatedDocs<any>|false> {
-  if (!collectionsToSearch.length) return false
+  if (!collectionsToSearch.length || !replyPost) return false
 
   const post = await payload.find({
     collection: collectionsToSearch[index],
