@@ -4,6 +4,17 @@
 
 A fully-customizable plugin for [Payload CMS](https://github.com/payloadcms/payload) to create a collection for comments, reviews, or other user-submitted feedback on your website or web application.
 
+## Table of Contents
+
+1. [Core Features](#core-features)
+2. [Use Cases](#use-cases)
+3. [Installation](#installation)
+4. [Basic Usage](#basic-usage)
+5. [Default Options](#default-options)
+6. [Options](#options)
+7. [Submitting a `Request` to the `/add-comment` API Endpoint](#submitting-a-request-to-the-add-comment-api-endpoint)
+8. [Comment Validation](#comment-validation)
+
 ## Core features:
 
 - Adds a collection to your Payload CMS instance for comments with the following features out of the box:
