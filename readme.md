@@ -96,7 +96,7 @@ const defaultOptions = {
   addCommentMethod: 'post',
   hasPublishedCommentPath: '/has-published-comment',
   hasPublishedCommentMethod: 'post',
-  hasPublishedCommentAuthorField: 'author',
+  hasPublishedCommentFields: ['email'],
   collectionsAllowingComments: [],
   sendAlert: false,
   alertRecipients: [],
@@ -243,11 +243,11 @@ HTTP verb used to access the default `/has-published-comment` endpoint that [may
 
 Default value: `post`
 
-### hasPublishedCommentAuthorField: `string`
+### hasPublishedCommentFields: `string[]`
 
-Name of the field used to check whether someone already has an approved comment saved in the current Payload instance when dispatching a `Request` to the [`/has-published-comment` API endpoint](#haspublishedcommentpath-string). The field name should match the name of a property in the `body` of any `Request` passed to this API endpoint. By default, we use the `author` field from the list of default Collection Fields for the Comments collection.
+Name of the fields used to check whether someone already has an approved comment saved in the current Payload instance when dispatching a `Request` to the [`/has-published-comment` API endpoint](#haspublishedcommentpath-string). The strings in this array should match the names of properties in the `body` of any `Request` passed to this API endpoint. By default, we use the `email` field from the list of default Collection Fields for the Comments collection.
 
-Default value: `'author'`
+Default value: `['email']`
 
 ### additionalEndpoints: `Omit<Endpoint, "root">[]`
 
