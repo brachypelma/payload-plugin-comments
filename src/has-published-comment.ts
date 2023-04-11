@@ -12,9 +12,7 @@ export default async function hasPublishedComment(
   const { fields, hasPublishedCommentFields, slug } = options
   const isInvalid = getIsInvalid(body, slug, hasPublishedCommentFields, fields)
 
-  if (isInvalid) {
-    return res.status(200).json({ hasPublishedComment: false })
-  }
+  if (isInvalid) return res.status(200).json({ hasPublishedComment: false })
 
   const where = getWhere(body, hasPublishedCommentFields)
   const hasPublishedComment = await getHasPublishedComment(slug, where)

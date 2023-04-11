@@ -247,6 +247,8 @@ Default value: `post`
 
 Name of the fields used to check whether someone already has an approved comment saved in the current Payload instance when dispatching a `Request` to the [`/has-published-comment` API endpoint](#haspublishedcommentpath-string). The strings in this array should match the names of properties in the `body` of any `Request` passed to this API endpoint. By default, we use the `email` field from the list of default Collection Fields for the Comments collection.
 
+For information on using this endpoint, see [the section on using the `hasPublishedComment` API endpoint for comment validation](#using-has-published-comment-api-endpoint)
+
 Default value: `['email']`
 
 ### additionalEndpoints: `Omit<Endpoint, "root">[]`
