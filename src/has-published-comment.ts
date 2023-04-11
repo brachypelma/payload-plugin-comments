@@ -35,14 +35,12 @@ function getIsInvalid(
   hasPublishedCommentFields: string[],
   fields: Field[],
 ) {
-  const missingFields = getMissingFields(fields, hasPublishedCommentFields)
-
   return !!(
     !body ||
     typeof body !== 'object' ||
     !slug ||
     !hasPublishedCommentFields.length ||
-    missingFields.length
+    getMissingFields(fields, hasPublishedCommentFields).length
   )
 }
 
