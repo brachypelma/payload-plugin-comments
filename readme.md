@@ -423,4 +423,10 @@ export default buildConfig({
 });
 ```
 
+### Manually Review All Comments Submitted
+
+If you want to manually review and approve all comments submitted to your Payload instance, call the `comments` function with `autoPublish` and `autoPublishConditions` omitted or set to their default values (`false` and `[]`, respectively).
+
 ### Using `has-published-comment` API Endpoint
+
+
