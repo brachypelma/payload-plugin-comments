@@ -400,6 +400,27 @@ We leave comment validation/approval up to the user. However, facilitate usage o
 
 ### Automatically Approve All Comments Submitted
 
+If you want to allow unmoderated comments, simply call the `comments` function in your Payload init's `plugins` array with an options object whose `autoPublish` property is set to `true` and whose `autoPublishConditions` property is set to empty array (default value), e.g.:
 
+```js
+import { buildConfig } from "payload/config";
+import search from "@payloadcms/plugin-search";
+
+export default buildConfig({
+  collections: [
+    {
+      slug: "pages",
+      fields: [],
+    },
+    {
+      slug: "posts",
+      fields: [],
+    },
+  ],
+  plugins: [
+    comments({autoPublish: true}),
+  ],
+});
+```
 
 ### Using `has-published-comment` API Endpoint
