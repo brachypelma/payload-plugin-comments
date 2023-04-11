@@ -2,7 +2,7 @@ import { CommentOptions } from "./types"
 import payload from "payload"
 import { Request, Response } from "express"
 import { Where } from "payload/types"
-import { FieldBase } from "payload/dist/fields/config/types"
+import { Field, FieldBase } from "payload/dist/fields/config/types"
 
 export default async function hasPublishedComment(
   { body }: Request,
@@ -10,10 +10,7 @@ export default async function hasPublishedComment(
   options: CommentOptions,
 ) {
   const { fields, hasPublishedCommentFields, slug } = options
-  const fieldsWithNames = fields as FieldBase[]
-  const missingFields = hasPublishedCommentFields.filter(fieldName => {
-    return !fieldsWithNames.find(({ name }) => name === fieldName)
-  })
+  const missingFields = getMissingFields(fields, hasPublishedCommentFields)
   const isInvalidRequest = getIsInvalidRequest(
     body, slug, hasPublishedCommentFields, missingFields
   )
@@ -26,6 +23,13 @@ export default async function hasPublishedComment(
   const hasPublishedComment = await getHasPublishedComment(slug, where)
 
   return res.status(200).json(hasPublishedComment)
+}
+
+function getMissingFields(fields: Field[], hasPublishedCommentFields: string[]) {
+  const fieldsWithNames = fields as FieldBase[]
+  return hasPublishedCommentFields.filter(fieldName => {
+    return !fieldsWithNames.find(({ name }) => name === fieldName)
+  })
 }
 
 function getIsInvalidRequest(
