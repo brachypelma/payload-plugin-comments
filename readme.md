@@ -398,6 +398,12 @@ Given the execution steps of the [`processComment` handler function for the defa
 
 We leave comment validation/approval up to the user. However, facilitate usage of this plugin, we outline how you might implement some common validation schemas in your application below.
 
+### Manually Review All Comments Submitted
+
+This is the default setting for this plugin, so if you call the `comments` function without an options object, you will have to manually review and approve every comment that comes in, since all incoming comments will be saved with an `isApproved` field value set to `false`.
+
+To learn about configuring the plugin to send email alerts when new comments are received and ready for review, [see the documentation on the `sendAlert` option and options starting with `alert`.](#sendalert-boolean)
+
 ### Automatically Approve All Comments Submitted
 
 If you want to allow unmoderated comments, simply call the `comments` function in your Payload init's `plugins` array with an options object whose `autoPublish` property is set to `true` and whose `autoPublishConditions` property is set to empty array (default value), e.g.:
@@ -422,10 +428,6 @@ export default buildConfig({
   ],
 });
 ```
-
-### Manually Review All Comments Submitted
-
-If you want to manually review and approve all comments submitted to your Payload instance, call the `comments` function with `autoPublish` and `autoPublishConditions` omitted or set to their default values (`false` and `[]`, respectively).
 
 ### Using `has-published-comment` API Endpoint
 
