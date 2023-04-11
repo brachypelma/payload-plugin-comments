@@ -14,17 +14,16 @@ export default async function hasPublishedComment(
   const missingFields = hasPublishedCommentFields.filter(fieldName => {
     return !fieldsWithNames.find(({ name }) => name === fieldName)
   })
-  let hasPublishedComment = getIsInvalidRequest(
+  const isInvalidRequest = getIsInvalidRequest(
     body, slug, hasPublishedCommentFields, missingFields
   )
 
-  if (!hasPublishedComment) {
-    return res.status(200).json(hasPublishedComment)
+  if (isInvalidRequest) {
+    return res.status(200).json({ hasPublishedComment: false })
   }
 
   const where = getWhere(body, hasPublishedCommentFields)
-  
-  hasPublishedComment = await getHasPublishedComment(slug, where)
+  const hasPublishedComment = await getHasPublishedComment(slug, where)
 
   return res.status(200).json(hasPublishedComment)
 }
