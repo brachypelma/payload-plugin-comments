@@ -433,4 +433,6 @@ export default buildConfig({
 
 On initialization, this plugin configures a comments collection API endpoint called `/has-published-comment`. (You can override the default name of the endpoint by modifying the [`hasPublishedCommentPath` option](#haspublishedcommentpath-string).)
 
+This endpoint will look for approved comments matching the criteria passed to it.
 
+This endpoint returns a JSON object with the property `hasPublishedComment` with a value of either `true` or `false`. The value of `hasPublishedComment` depends on whether your Payload instance can find a comment by the author 
