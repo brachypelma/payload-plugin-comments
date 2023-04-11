@@ -9,8 +9,8 @@ export default async function hasPublishedComment(
   options: CommentOptions,
 ) {
   const { hasPublishedCommentAuthorField, slug } = options
-  const bodyAuthor = body && typeof body === 'object'
-    ? body[hasPublishedCommentAuthorField] : false
+  const bodyAuthor = body && typeof body === 'object' ?
+    body[hasPublishedCommentAuthorField] : false
   let hasPublishedComment = false
 
   if (

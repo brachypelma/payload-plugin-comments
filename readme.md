@@ -431,4 +431,6 @@ export default buildConfig({
 
 ### Using `has-published-comment` API Endpoint
 
+On initialization, this plugin configures a comments collection API endpoint called `/has-published-comment`. (You can override the default name of the endpoint by modifying the [`hasPublishedCommentPath` option](#haspublishedcommentpath-string).)
+
 
