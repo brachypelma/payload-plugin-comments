@@ -433,8 +433,41 @@ export default buildConfig({
 
 ### Using `has-published-comment` API Endpoint
 
-On initialization, this plugin configures a comments collection API endpoint called `/has-published-comment`. (You can override the default name of the endpoint by modifying the [`hasPublishedCommentPath` option](#haspublishedcommentpath-string).)
+One common comment validation scheme involves allowing trusted users, i.e. users with at least one previously-approved comment, to have their subsequent comments automatically approved upon submission. In order to facilitate implementation of this comment validation scheme, this plugin configures a an API endpoint for the comments collection it creates called `/has-published-comment`. (You can override the default name of the endpoint by modifying the [`hasPublishedCommentPath` option](#haspublishedcommentpath-string).)
 
-This endpoint will look for approved comments matching the criteria passed to it.
+This endpoint will look for approved comments in your Payload instance matching the criteria set in your comments collection configuration options. More specifically, the `handler` for this endpoint will look at the `body` of the `Request` made to this endpoint for properties whose names match each of the strings in the [`hasPublishedCommentFields` array](#haspublishedcommentfields-string) of your plugin options object. If there is at least one comment with an `isApproved` property set to `true` with field values matching those in the `body` of your `Request`, the API endpoint will respond with the JSON string `{"hasPublishedComment":true}"`. If the `handler` cannot find at least one matching approved comment, `hasPublishedComment` will be `false` in the endpoint's JSON response.
 
-This endpoint returns a JSON object with the property `hasPublishedComment` with a value of either `true` or `false`. The value of `hasPublishedComment` depends on whether your Payload instance can find a comment by the author 
+As an example, let's suppose you set the `hasPublishedCommentsFields` array to `['author', 'email']`. When you make a call to the `has-published-comment` API endpoint, the endpoint's `handler` will examine the `body` of your `Request` to see whether it has properties named `'author'` and `'endpoint'`. If either of these properties are missing in the `body`, the endpoint will respond with the JSON string `{"hasPublishedComment":false}"`. If the `body` contains both of these properties, the API `handler` will query the Payload instance with a [`Where` object](https://payloadcms.com/docs/queries/overview) constructed by the following function:
+
+```ts
+function getWhere(body: any, hasPublishedCommentFields: string[]) {
+  const where: Where = {
+    isApproved: {
+      equals: true
+    }
+  }
+
+  hasPublishedCommentFields.forEach(field => {
+    const bodyFieldVal = body[field]
+    if (bodyFieldVal) where[field] = { equals: bodyFieldVal }
+  })
+
+  return where
+}
+```
+
+This `Where` object is then fed into a call to `payload.find()` constructed as follows (where `slug` matches the [`slug`](#slug-string) of the comments collection configured when initializing the comments plugin):
+
+```ts
+async function getHasPublishedComment(slug: string, where: Where) {
+  const { docs } = await payload.find({
+    collection: slug,
+    limit: 1,
+    where,
+  })
+  
+  return docs?.length > 0
+}
+```
+
+In our hypothetical example, the API endpoint `handler` would query the Payload instance for items in the `comments` collection with an `isApproved` field set to `true`, and `author` and `email` field values matching the values of their corresponding properties in the `body` of the `Request` made to the API endpoint.
