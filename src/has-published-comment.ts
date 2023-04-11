@@ -10,12 +10,9 @@ export default async function hasPublishedComment(
   options: CommentOptions,
 ) {
   const { fields, hasPublishedCommentFields, slug } = options
-  const missingFields = getMissingFields(fields, hasPublishedCommentFields)
-  const isInvalidRequest = getIsInvalidRequest(
-    body, slug, hasPublishedCommentFields, missingFields
-  )
+  const isInvalid = getIsInvalid(body, slug, hasPublishedCommentFields, fields)
 
-  if (isInvalidRequest) {
+  if (isInvalid) {
     return res.status(200).json({ hasPublishedComment: false })
   }
 
@@ -32,12 +29,14 @@ function getMissingFields(fields: Field[], hasPublishedCommentFields: string[]) 
   })
 }
 
-function getIsInvalidRequest(
+function getIsInvalid(
   body: any,
   slug: string,
   hasPublishedCommentFields: string[],
-  missingFields: string[]
+  fields: Field[],
 ) {
+  const missingFields = getMissingFields(fields, hasPublishedCommentFields)
+
   return !!(
     !body ||
     typeof body !== 'object' ||
