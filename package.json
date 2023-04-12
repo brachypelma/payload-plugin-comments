@@ -17,7 +17,7 @@
     "comments",
     "reviews"
   ],
-  "author": "ericdjonas@gmail.com",
+  "author": "admin@confoundedtechnology.com",
   "license": "MIT",
   "devDependencies": {
     "@types/express": "^4.17.9",
