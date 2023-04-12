@@ -58,6 +58,8 @@ A fully-customizable plugin for [Payload CMS](https://github.com/payloadcms/payl
 
 ## Installation
 
+`npm i payload-plugin-comments`
+
 ## Basic Usage
 
 In the `plugins` array of your [Payload config](https://payloadcms.com/docs/configuration/overview), call the plugin with [options](#options):
