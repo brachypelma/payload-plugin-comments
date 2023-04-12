@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<title>Comments Plugin Test</title>
+</head>
+
+<body>
+<form>
+  <div>
+    <div>
+      <label for="author">author</label>
+    </div>
+    <input type="text" id="author" />
+  </div>
+  <div>
+    <div>
+      <label for="email">email</label>
+    </div>
+    <input type="email" id="email" />
+  </div>
+  <div>
+    <div>
+      <label for="content">content</label>
+    </div>
+    <input type="text" id="content" />
+  </div>
+  <div>
+    <input type="submit" value="Submit Comment" />
+  </div>
+</form>
+
+<div id="output"></div>
+
+<script>
+const authorInput = document.querySelector('#author')
+const emailInput = document.querySelector('#email')
+const contentInput = document.querySelector('#content')
+const replyPost = '6436787564bdb730283ed3c7'
+const url = 'https://admin.codefiant.net/api/comments/add-comment'
+const output = document.querySelector('#output')
+
+document.querySelector('form').addEventListener('submit', async (e) => {
+  e.preventDefault()
+
+  const author = authorInput.value
+  const email = emailInput.value
+  const content = contentInput.value
+  
+  const data = {
+    headers: { 'Content-Type': 'application/json' },
+    method: 'post',
+    body: JSON.stringify({ content, author, email, replyPost }),
+  }
+
+  await fetch(url, data).then(async res => {
+    const { saved, isApproved } = await res.json()
+    output.innerHTML = `${new Date()}: saved: ${(saved ?? 'error')}, isApproved: ${(isApproved ?? 'error')}`
+  })
+})
+</script>
+
+</body>
+</html>
