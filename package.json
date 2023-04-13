@@ -1,6 +1,6 @@
 {
   "name": "payload-plugin-comments",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "repository": "git@github.com:brachypelma/payload-plugin-comments.git",
   "description": "Comment plugin for Payload CMS. Adds a configurable Comments collection to your Payload instance to allow users to submit feedback/content to your site/app.",
   "main": "dist/index.js",
