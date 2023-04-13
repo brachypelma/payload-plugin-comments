@@ -95,7 +95,7 @@ document.querySelector('#check-form').addEventListener('submit', async (e) => {
   const data = {
     headers: { 'Content-Type': 'application/json' },
     method: 'post',
-    body: JSON.stringify({ email }),
+    body: JSON.stringify({ author, email }),
   }
 
   await fetch(checkUrl, data).then(async res => {

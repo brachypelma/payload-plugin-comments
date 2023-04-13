@@ -43,15 +43,20 @@ function getIsInvalid(
 }
 
 function getWhere(body: any, hasPublishedCommentFields: string[]) {
-  const where: Where = {
+  const where: Where[] = [{
     isApproved: {
       equals: true
     }
-  }
+  }]
 
   hasPublishedCommentFields.forEach(field => {
     const bodyFieldVal = body[field]
-    if (bodyFieldVal) where[field] = { equals: bodyFieldVal }
+    const whereParam: Where = {}
+    
+    if (bodyFieldVal) {
+      whereParam[field] = { equals: bodyFieldVal }
+      where.push(whereParam)
+    }
   })
 
   return where
