@@ -1,7 +1,5 @@
 # Payload Comments Plugin
 
-# STILL IN DEVELOPMENT -- DO NOT USE UNTIL RELEASED
-
 [NPM](https://www.npmjs.com/package/payload-plugin-comments)
 
 A fully-customizable plugin for [Payload CMS](https://github.com/payloadcms/payload) to create a collection for comments, reviews, or other user-submitted feedback on your website or web application.
