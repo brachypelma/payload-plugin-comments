@@ -3,6 +3,7 @@ import payload from "payload"
 import { Request, Response } from "express"
 import { Where } from "payload/types"
 import { Field, FieldBase } from "payload/dist/fields/config/types"
+import { BodyObj } from "./types"
 
 export default async function hasPublishedComment(
   { body }: Request,
@@ -21,7 +22,7 @@ export default async function hasPublishedComment(
 }
 
 function hasMissingFields(
-  body: object,
+  body: BodyObj,
   fields: Field[],
   hasPublishedCommentFields: string[],
 ) {
@@ -30,7 +31,7 @@ function hasMissingFields(
     return !fieldsWithNames.find(({ name }) => name === fieldName)
   })
   const fieldsNotInBody = hasPublishedCommentFields.filter(fieldName => {
-    return !body.hasOwnProperty(fieldName)
+    return !body.hasOwnProperty(fieldName) || !body[fieldName]
   })
 
   return fieldsNotInCollection.length > 0 || fieldsNotInBody.length > 0
