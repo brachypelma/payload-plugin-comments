@@ -20,11 +20,20 @@ export default async function hasPublishedComment(
   return res.status(200).json({ hasPublishedComment })
 }
 
-function getMissingFields(fields: Field[], hasPublishedCommentFields: string[]) {
+function hasMissingFields(
+  body: object,
+  fields: Field[],
+  hasPublishedCommentFields: string[],
+) {
   const fieldsWithNames = fields as FieldBase[]
-  return hasPublishedCommentFields.filter(fieldName => {
+  const fieldsNotInCollection = hasPublishedCommentFields.filter(fieldName => {
     return !fieldsWithNames.find(({ name }) => name === fieldName)
   })
+  const fieldsNotInBody = hasPublishedCommentFields.filter(field => {
+    return !body.hasOwnProperty(field)
+  })
+
+  return !!(fieldsNotInCollection.length)
 }
 
 function getIsInvalid(
@@ -38,7 +47,7 @@ function getIsInvalid(
     typeof body !== 'object' ||
     !slug ||
     !hasPublishedCommentFields.length ||
-    getMissingFields(fields, hasPublishedCommentFields).length
+    hasMissingFields(body, fields, hasPublishedCommentFields)
   )
 }
 
