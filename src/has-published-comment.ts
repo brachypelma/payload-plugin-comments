@@ -33,7 +33,7 @@ function hasMissingFields(
     return !body.hasOwnProperty(field)
   })
 
-  return !!(fieldsNotInCollection.length)
+  return fieldsNotInCollection.length > 0 || fieldsNotInBody.length > 0
 }
 
 function getIsInvalid(
