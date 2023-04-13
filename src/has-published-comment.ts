@@ -17,7 +17,7 @@ export default async function hasPublishedComment(
   const where = getWhere(body, hasPublishedCommentFields)
   const hasPublishedComment = await getHasPublishedComment(slug, where)
 
-  return res.status(200).json(hasPublishedComment)
+  return res.status(200).json({ hasPublishedComment })
 }
 
 function getMissingFields(fields: Field[], hasPublishedCommentFields: string[]) {

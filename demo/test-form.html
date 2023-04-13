@@ -2,10 +2,19 @@
 <html>
 <head>
 <title>Comments Plugin Test</title>
+
+<style>
+  body {
+    background-color: #222;
+    color: #eee;
+  }
+</style>
+
 </head>
 
 <body>
-<form>
+<form id="submit-form">
+  <h2>Submit new comment</h2>
   <div>
     <div>
       <label for="author">author</label>
@@ -29,6 +38,24 @@
   </div>
 </form>
 
+<form id="check-form">
+  <h2>Check for published new comment</h2>
+  <div>
+    <div>
+      <label for="author-check">author</label>
+    </div>
+    <input type="text" id="author-check" />
+  </div>
+  <div>
+    <div>
+      <label for="email-check">email</label>
+    </div>
+    <input type="email" id="email-check" />
+  </div>
+  <input type="submit" value="Submit Request" />
+  </div>
+</form>
+
 <div id="output"></div>
 
 <script>
@@ -37,9 +64,10 @@ const emailInput = document.querySelector('#email')
 const contentInput = document.querySelector('#content')
 const replyPost = '6436787564bdb730283ed3c7'
 const url = 'https://admin.codefiant.net/api/comments/add-comment'
+const checkUrl = 'https://admin.codefiant.net/api/comments/has-published-comment'
 const output = document.querySelector('#output')
 
-document.querySelector('form').addEventListener('submit', async (e) => {
+document.querySelector('#submit-form').addEventListener('submit', async (e) => {
   e.preventDefault()
 
   const author = authorInput.value
@@ -55,6 +83,24 @@ document.querySelector('form').addEventListener('submit', async (e) => {
   await fetch(url, data).then(async res => {
     const { saved, isApproved } = await res.json()
     output.innerHTML = `${new Date()}: saved: ${(saved ?? 'error')}, isApproved: ${(isApproved ?? 'error')}`
+  })
+})
+
+document.querySelector('#check-form').addEventListener('submit', async (e) => {
+  e.preventDefault()
+
+  const author = document.querySelector('#author-check').value
+  const email = document.querySelector('#email-check').value
+  
+  const data = {
+    headers: { 'Content-Type': 'application/json' },
+    method: 'post',
+    body: JSON.stringify({ email }),
+  }
+
+  await fetch(checkUrl, data).then(async res => {
+    const { hasPublishedComment } = await res.json()
+    output.innerHTML = `${new Date()}: hasPublishedComment: ${(hasPublishedComment ?? 'error')}`
   })
 })
 </script>
