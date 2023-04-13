@@ -42,7 +42,7 @@ function getIsInvalid(
   )
 }
 
-function getWhere(body: any, hasPublishedCommentFields: string[]) {
+function getWhere(body: any, hasPublishedCommentFields: string[]): Where {
   const where: Where[] = [{
     isApproved: {
       equals: true
@@ -59,7 +59,7 @@ function getWhere(body: any, hasPublishedCommentFields: string[]) {
     }
   })
 
-  return where
+  return { and: where }
 }
 
 async function getHasPublishedComment(slug: string, where: Where) {
