@@ -49,3 +49,7 @@ export type IncomingOptions = { // Same as CommentOptions, but properties option
   autoPublish?: boolean,
   autoPublishConditions?: string[],
 }
+
+export type BodyObj = {
+  [key: string]: string;
+}
