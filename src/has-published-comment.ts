@@ -31,7 +31,7 @@ function hasMissingFields(
     return !fieldsWithNames.find(({ name }) => name === fieldName)
   })
   const fieldsNotInBody = hasPublishedCommentFields.filter(fieldName => {
-    return !body.hasOwnProperty(fieldName) || !body[fieldName]
+    return typeof body[fieldName] === 'undefined' || !body[fieldName]
   })
 
   return fieldsNotInCollection.length > 0 || fieldsNotInBody.length > 0
