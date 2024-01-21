@@ -66,7 +66,7 @@ In the `plugins` array of your [Payload config](https://payloadcms.com/docs/conf
 
 ```js
 import { buildConfig } from "payload/config";
-import search from "@payloadcms/plugin-search";
+import comments from "payload-plugin-comments";
 
 export default buildConfig({
   collections: [
